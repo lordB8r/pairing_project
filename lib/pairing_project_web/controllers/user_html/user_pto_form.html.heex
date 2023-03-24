@@ -1,0 +1,12 @@
+<.header>
+  Adding PTO for <%= @user.id %>
+</.header>
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.input field={f[:date]} type="date" label="pto date" />
+  <%= hidden_input(f, :user_id, value: @user.id) %>
+  <:actions>
+    <.button>
+      Save
+    </.button>
+  </:actions>
+</.simple_form>

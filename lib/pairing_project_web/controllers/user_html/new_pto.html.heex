@@ -1,0 +1,8 @@
+<.header>
+  New PTO Request
+  <:subtitle>Use this form to add PTO requests for the user.</:subtitle>
+</.header>
+
+<.user_pto_form changeset={@changeset} user={@user} action={~p"/add_pto/new"} />
+
+<.back navigate={~p"/users/#{@user}"}>Back to user</.back>

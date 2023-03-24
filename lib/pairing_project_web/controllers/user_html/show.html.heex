@@ -1,0 +1,27 @@
+<.header>
+  User <%= @user.id %>
+  <:subtitle>This is a user record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/users/#{@user}/edit"}>
+      <.button>Edit user</.button>
+    </.link>
+    <.link href={~p"/add_pto/#{@user}"}>
+      <.button>Add PTO</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Last name"><%= @user.last_name %></:item>
+  <:item title="First name"><%= @user.first_name %></:item>
+  <:item title="Email"><%= @user.email %></:item>
+</.list>
+<br />
+<label>PTO requests</label>
+<ul>
+  <%= for pto <- list_ptos(@user.pto_requests) do %>
+    <li><%= pto %></li>
+  <% end %>
+</ul>
+
+<.back navigate={~p"/users"}>Back to users</.back>
