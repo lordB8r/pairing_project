@@ -37,6 +37,19 @@ defmodule PairingProject.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_users!([]), do: []
+
+  def get_users!(users) do
+    user_ids = users |> Enum.map(& &1)
+
+    from(
+      u in User,
+      where: u.id in ^user_ids,
+      select: u
+    )
+    |> Repo.all()
+  end
+
   @doc """
   Creates a user.
 

@@ -1,0 +1,23 @@
+<.header>
+  Project <%= @project.id %>
+  <:subtitle>This is a project record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/projects/#{@project}/edit"}>
+      <.button>Edit project</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @project.name %></:item>
+  <:item title="Length"><%= @project.length %></:item>
+</.list>
+<br />
+<h2>selected users:</h2>
+<ul>
+  <%= for user <- selected_users(@project.users) do %>
+    <li>User First: <%= user.first_name %></li>
+  <% end %>
+</ul>
+
+<.back navigate={~p"/projects"}>Back to projects</.back>

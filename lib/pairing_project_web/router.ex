@@ -22,6 +22,7 @@ defmodule PairingProjectWeb.Router do
     get "/add_pto/:user_id", UserController, :new_pto
     put "/add_pto/new", UserController, :create_pto
     resources("/users", UserController)
+    resources "/projects", ProjectController
   end
 
   # Other scopes may use custom stacks.
