@@ -1,5 +1,5 @@
 <.header>
-  User <%= @user.id %>
+  User <%= get_user_name(@user.id) %>
   <:subtitle>This is a user record from your database.</:subtitle>
   <:actions>
     <.link href={~p"/users/#{@user}/edit"}>

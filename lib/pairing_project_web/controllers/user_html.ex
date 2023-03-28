@@ -3,6 +3,8 @@ defmodule PairingProjectWeb.UserHTML do
 
   import Phoenix.HTML.Form
 
+  alias PairingProject.Accounts
+
   embed_templates "user_html/*"
 
   @doc """
@@ -16,4 +18,9 @@ defmodule PairingProjectWeb.UserHTML do
   def list_ptos(nil), do: []
   def list_ptos([]), do: []
   def list_ptos(ptos), do: ptos
+
+  def get_user_name(id) do
+    dev = Accounts.get_user!(id)
+    dev.last_name <> ", " <> dev.first_name
+  end
 end

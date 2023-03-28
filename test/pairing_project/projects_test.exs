@@ -8,7 +8,7 @@ defmodule PairingProject.ProjectsTest do
 
     import PairingProject.ProjectsFixtures
 
-    @invalid_attrs %{length: nil, name: nil, pairings: nil}
+    @invalid_attrs %{length: nil, name: nil, sprints: nil}
 
     test "list_projects/0 returns all projects" do
       project = project_fixture()
@@ -21,12 +21,18 @@ defmodule PairingProject.ProjectsTest do
     end
 
     test "create_project/1 with valid data creates a project" do
-      valid_attrs = %{length: 42, name: "some name", pairings: [1, 2]}
+      valid_attrs = %{
+        length: 42,
+        name: "some name",
+        sprints: [%{pairings: [1, 2]}],
+        startdate: ~D[2023-02-02],
+        vacation_threshold: 1
+      }
 
       assert {:ok, %Project{} = project} = Projects.create_project(valid_attrs)
       assert project.length == 42
       assert project.name == "some name"
-      assert project.pairings == [1, 2]
+      assert project.sprints == [%{pairings: [1, 2]}]
     end
 
     test "create_project/1 with invalid data returns error changeset" do
@@ -35,12 +41,12 @@ defmodule PairingProject.ProjectsTest do
 
     test "update_project/2 with valid data updates the project" do
       project = project_fixture()
-      update_attrs = %{length: 43, name: "some updated name", pairings: [1]}
+      update_attrs = %{length: 43, name: "some updated name", sprints: [%{pairings: [1]}]}
 
       assert {:ok, %Project{} = project} = Projects.update_project(project, update_attrs)
       assert project.length == 43
       assert project.name == "some updated name"
-      assert project.pairings == [1]
+      assert project.sprints == [%{pairings: [1]}]
     end
 
     test "update_project/2 with invalid data returns error changeset" do

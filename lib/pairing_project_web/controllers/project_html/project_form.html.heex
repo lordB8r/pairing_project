@@ -4,7 +4,22 @@
   </.error>
   <.input field={f[:name]} type="text" label="Name" />
   <.input field={f[:length]} type="number" label="Length" />
+  <.input field={f[:startdate]} type="date" label="Start Date" />
+  <.input
+    field={f[:vacation_threshold]}
+    type="number"
+    label="Vacation days threshold before considered unavailable"
+    min="1"
+    max="5"
+  />
+  <label>
+    Select multiple developers for this Project.
+  </label>
+  <br />
   <%= users_select(f, @changeset) %>
+  <p>
+    Shift + click will select a range. Command or ctrl + click will select multiple individuals
+  </p>
   <:actions>
     <.button>Save Project</.button>
   </:actions>

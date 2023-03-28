@@ -114,4 +114,28 @@ defmodule PairingProject.Accounts do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
+  @doc """
+  Returns a user's availability for a sprint
+  """
+  def user_sprint_availability(nil, _sprint_date_range, _threshold), do: false
+
+  def user_sprint_availability(user_id, sprint_date_range, threshold) do
+    breached =
+      get_user!(user_id)
+      |> Map.get(:pto_requests)
+      |> maybe_check_dates
+      |> Enum.reduce([], fn x, acc ->
+        if x in sprint_date_range do
+          [x | acc]
+        else
+          acc
+        end
+      end)
+
+    length(breached) < threshold
+  end
+
+  defp maybe_check_dates(nil), do: []
+  defp maybe_check_dates(list), do: list
 end

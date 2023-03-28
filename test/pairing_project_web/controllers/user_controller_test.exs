@@ -3,8 +3,18 @@ defmodule PairingProjectWeb.UserControllerTest do
 
   import PairingProject.AccountsFixtures
 
-  @create_attrs %{email: "some email", first_name: "some first_name", last_name: "some last_name", pto_requests: []}
-  @update_attrs %{email: "some updated email", first_name: "some updated first_name", last_name: "some updated last_name", pto_requests: []}
+  @create_attrs %{
+    email: "some email",
+    first_name: "some first_name",
+    last_name: "some last_name",
+    pto_requests: []
+  }
+  @update_attrs %{
+    email: "some updated email",
+    first_name: "some updated first_name",
+    last_name: "some updated last_name",
+    pto_requests: []
+  }
   @invalid_attrs %{email: nil, first_name: nil, last_name: nil, pto_requests: nil}
 
   describe "index" do
@@ -29,7 +39,7 @@ defmodule PairingProjectWeb.UserControllerTest do
       assert redirected_to(conn) == ~p"/users/#{id}"
 
       conn = get(conn, ~p"/users/#{id}")
-      assert html_response(conn, 200) =~ "User #{id}"
+      assert html_response(conn, 200) =~ "User some last_name"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

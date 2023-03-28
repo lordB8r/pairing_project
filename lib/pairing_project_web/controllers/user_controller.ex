@@ -15,19 +15,14 @@ defmodule PairingProjectWeb.UserController do
   end
 
   def new_pto(conn, params) do
-    user =
-      Accounts.get_user!(params["user_id"])
-      |> IO.inspect(label: "user_controller.ex:19")
+    user = Accounts.get_user!(params["user_id"])
 
     changeset = Accounts.change_user(user)
-    changeset |> IO.inspect(label: "user_controller.ex:20")
 
     render(conn, :new_pto, user: user, changeset: changeset)
   end
 
   def create_pto(conn, %{"user" => data}) do
-    data |> IO.inspect(label: "user_controller.ex:29")
-    # "user" => %{"date" => "2023-03-31", "user_id" => "1"}
     {:ok, date} = Map.get(data, "date") |> Date.from_iso8601()
     user_id = Map.get(data, "user_id")
     user = Accounts.get_user!(user_id)
@@ -41,9 +36,7 @@ defmodule PairingProjectWeb.UserController do
         [date | pto]
       end
 
-    changeset =
-      %{pto_requests: pto}
-      |> IO.inspect(label: "user_controller.ex:36")
+    changeset = %{pto_requests: pto}
 
     case Accounts.update_user(user, changeset) do
       {:ok, _} ->

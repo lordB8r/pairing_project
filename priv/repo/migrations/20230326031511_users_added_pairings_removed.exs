@@ -3,8 +3,8 @@ defmodule PairingProject.Repo.Migrations.UsersAddedPairingsRemoved do
 
   def change do
     alter table(:projects) do
-      add :users, {:array, :integer}
-      add :sprints, {:array, :integer}
+      add :users, {:array, :integer}, default: []
+      add :sprints, {:array, :map}, default: []
     end
   end
 end

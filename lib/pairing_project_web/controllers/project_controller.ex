@@ -59,4 +59,12 @@ defmodule PairingProjectWeb.ProjectController do
     |> put_flash(:info, "Project deleted successfully.")
     |> redirect(to: ~p"/projects")
   end
+
+  def generate_pairings(conn, %{"project_id" => project_id}) do
+    Projects.get_project!(project_id)
+    |> Projects.generate_pairing_rotation()
+
+    conn
+    |> redirect(to: ~p"/projects/#{project_id}")
+  end
 end

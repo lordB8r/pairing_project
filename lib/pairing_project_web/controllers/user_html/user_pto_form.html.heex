@@ -1,5 +1,5 @@
 <.header>
-  Adding PTO for <%= @user.id %>
+  Adding PTO for <%= get_user_name(@user.id) %>
 </.header>
 <.simple_form :let={f} for={@changeset} action={@action}>
   <.input field={f[:date]} type="date" label="pto date" />

@@ -4,12 +4,20 @@
     <.link href={~p"/projects/new"}>
       <.button>New Project</.button>
     </.link>
+    <.link href={~p"/users"}>
+      <.button>Users</.button>
+    </.link>
+    <.link href={~p"/"}>
+      <.button>Home</.button>
+    </.link>
   </:actions>
 </.header>
 
 <.table id="projects" rows={@projects} row_click={&JS.navigate(~p"/projects/#{&1}")}>
   <:col :let={project} label="Name"><%= project.name %></:col>
   <:col :let={project} label="Length"><%= project.length %></:col>
+  <:col :let={project} label="Start Date"><%= project.startdate %></:col>
+  <:col :let={project} label="Vacay Threshold"><%= project.vacation_threshold %></:col>
 
   <:action :let={project}>
     <div class="sr-only">

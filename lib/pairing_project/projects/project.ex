@@ -5,8 +5,10 @@ defmodule PairingProject.Projects.Project do
   schema "projects" do
     field :length, :integer
     field :name, :string
-    field :sprints, {:array, :integer}
+    field :sprints, {:array, :map}
     field :users, {:array, :integer}
+    field :startdate, :date
+    field :vacation_threshold, :integer
 
     timestamps()
   end
@@ -14,7 +16,7 @@ defmodule PairingProject.Projects.Project do
   @doc false
   def changeset(project, attrs) do
     project
-    |> cast(attrs, [:length, :name, :sprints, :users])
-    |> validate_required([:length, :name])
+    |> cast(attrs, [:length, :name, :sprints, :users, :startdate, :vacation_threshold])
+    |> validate_required([:length, :name, :startdate, :vacation_threshold])
   end
 end

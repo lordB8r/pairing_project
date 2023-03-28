@@ -1,9 +1,12 @@
 <.header>
-  Project <%= @project.id %>
-  <:subtitle>This is a project record from your database.</:subtitle>
+  Project <%= @project.name %>
+  <:subtitle>Project details.</:subtitle>
   <:actions>
     <.link href={~p"/projects/#{@project}/edit"}>
       <.button>Edit project</.button>
+    </.link>
+    <.link href={~p"/generate_pairings/#{@project}"}>
+      <.button>Generate Pairings</.button>
     </.link>
   </:actions>
 </.header>
@@ -11,13 +14,29 @@
 <.list>
   <:item title="Name"><%= @project.name %></:item>
   <:item title="Length"><%= @project.length %></:item>
+  <:item title="Start Date"><%= @project.startdate %></:item>
+  <:item title="Vacay Threshold"><%= @project.vacation_threshold %></:item>
 </.list>
 <br />
-<h2>selected users:</h2>
+<label>Selected users:</label>
 <ul>
   <%= for user <- selected_users(@project.users) do %>
-    <li>User First: <%= user.first_name %></li>
+    <li><%= "#{user.first_name} #{user.last_name}" %></li>
   <% end %>
 </ul>
+<table>
+  <tr>
+    <th>Sprint id</th>
+    <th>Start date</th>
+    <th>Pairings</th>
+  </tr>
+  <%= for sprint <- sprint_pairings(@project.sprints) do %>
+    <tr>
+      <td><%= sprint["id"] %></td>
+      <td><%= sprint["startdate"] %></td>
+      <td><%= display_pairs(sprint["pairings"]) %></td>
+    </tr>
+  <% end %>
+</table>
 
 <.back navigate={~p"/projects"}>Back to projects</.back>

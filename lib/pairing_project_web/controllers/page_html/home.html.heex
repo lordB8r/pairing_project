@@ -53,10 +53,65 @@
       </small>
     </h1>
     <p class="text-[2rem] mt-4 font-semibold leading-10 tracking-tighter text-zinc-900">
-      Peace of mind from prototype to production.
+      Pairing Project
     </p>
     <p class="mt-4 text-base leading-7 text-zinc-600">
-      Build rich, interactive web applications quickly, with less code and fewer moving parts. Join our growing community of developers using Phoenix to craft APIs, HTML5 apps and more, for fun or at scale.
+      Create projects, define users (aka developers), give them vacation time, and generate balanced sprint pairings for the duration of your project
+    </p>
+
+    <div class="flex">
+      <h1 class="text-brand mt-10 flex items-center text-sm font-semibold leading-6">
+        Install Instructions
+        <small class="bg-brand/5 text-[0.8125rem] ml-3 rounded-full px-2 font-medium leading-6">
+          Find information in the project's readme.md
+        </small>
+      </h1>
+    </div>
+    <div>
+      <h1 class="text-brand mt-10 flex items-center text-sm font-semibold leading-6">
+        User Guide
+        <small class="bg-brand/5 text-[0.8125rem] ml-3 rounded-full px-2 font-medium leading-6">
+          Let's show you how to use this!
+        </small>
+      </h1>
+    </div>
+
+    <p>
+      Once you've got the app up and running, lets explore:
+    </p>
+    <.link href={~p"/users"}>
+      <.button>Users page</.button>
+    </.link>
+    <br />
+    <img src="/images/user_list.png" />
+    <p>On this page you can:</p>
+    <ol>
+      <li>* Setup your first user <img src="/images/user_create.png" /></li>
+      <li>* View the created user <img src="/images/user_view.png" /></li>
+      <li>* Create PTO requests for any user<img src="/images/pto_create.png" /></li>
+    </ol>
+
+    <br />
+    <p>Once you've explored that, let's add a project, where you can:</p>
+    <.link href={~p"/projects"}>
+      <.button>Projects page</.button>
+    </.link>
+    <img src="/images/project_new.png" />
+    <ol>
+      <li>* Set the project name</li>
+      <li>* Set the project length (number of weeks/sprints)</li>
+      <li>* Choose the start date (Please use Monday as we don't validate right now)</li>
+      <li>
+        * Set a vacation threshold (the number dictates how many vacation days in a week we allow a developer to have before they are unavailable to work that week)
+      </li>
+      <li>* Select all the users in this project</li>
+    </ol>
+    <img src="/images/project_view.png" />
+    <p>After you've create a project, you can now generate the pairings</p>
+    <img src="/images/project_pairing.png" />
+
+    <p class="mt-4 text-base leading-7 text-zinc-600">
+      Learn more about Phoenix, Elixir, and the framework this project was built on
     </p>
     <div class="flex">
       <div class="w-full sm:w-auto">

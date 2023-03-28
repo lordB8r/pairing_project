@@ -3,9 +3,15 @@ defmodule PairingProjectWeb.ProjectControllerTest do
 
   import PairingProject.ProjectsFixtures
 
-  @create_attrs %{length: 42, name: "some name", pairings: [1, 2]}
-  @update_attrs %{length: 43, name: "some updated name", pairings: [1]}
-  @invalid_attrs %{length: nil, name: nil, pairings: nil}
+  @create_attrs %{
+    length: 42,
+    name: "some name",
+    sprints: [%{pairing: [1, 2]}],
+    startdate: ~D[2023-02-02],
+    vacation_threshold: 1
+  }
+  @update_attrs %{length: 43, name: "some updated name", sprints: [%{sprint_pairings: [1]}]}
+  @invalid_attrs %{length: nil, name: nil, sprints: nil}
 
   describe "index" do
     test "lists all projects", %{conn: conn} do
@@ -29,7 +35,7 @@ defmodule PairingProjectWeb.ProjectControllerTest do
       assert redirected_to(conn) == ~p"/projects/#{id}"
 
       conn = get(conn, ~p"/projects/#{id}")
-      assert html_response(conn, 200) =~ "Project #{id}"
+      assert html_response(conn, 200) =~ "Project some name"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -51,10 +57,10 @@ defmodule PairingProjectWeb.ProjectControllerTest do
     setup [:create_project]
 
     test "redirects when data is valid", %{conn: conn, project: project} do
-      conn = put(conn, ~p"/projects/#{project}", project: @update_attrs)
-      assert redirected_to(conn) == ~p"/projects/#{project}"
+      conn = put(conn, ~p"/projects/#{project.id}", project: @update_attrs)
+      assert redirected_to(conn) == ~p"/projects/#{project.id}"
 
-      conn = get(conn, ~p"/projects/#{project}")
+      conn = get(conn, ~p"/projects/#{project.id}")
       assert html_response(conn, 200) =~ "some updated name"
     end
 

@@ -13,7 +13,10 @@ defmodule PairingProject.ProjectsFixtures do
       |> Enum.into(%{
         length: 42,
         name: "some name",
-        pairings: [1, 2]
+        startdate: ~D[2023-02-02],
+        vacation_threshold: 1,
+        sprints: [],
+        users: []
       })
       |> PairingProject.Projects.create_project()
 

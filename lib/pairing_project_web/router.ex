@@ -22,6 +22,7 @@ defmodule PairingProjectWeb.Router do
     get "/add_pto/:user_id", UserController, :new_pto
     put "/add_pto/new", UserController, :create_pto
     resources("/users", UserController)
+    get "/generate_pairings/:project_id", ProjectController, :generate_pairings
     resources "/projects", ProjectController
   end
 
