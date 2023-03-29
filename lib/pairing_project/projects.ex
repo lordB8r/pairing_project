@@ -102,8 +102,10 @@ defmodule PairingProject.Projects do
 
         # make sure the developer is available this sprint
         # for this sprint, create list of eligible engineers
-        developers_available_this_sprint =
+        %{devs: developers_available_this_sprint, vacay: vacay_devs} =
           developers_available_for_this_sprint(developers, sprint.daterange, threshold)
+
+        vacay_devs |> IO.inspect(label: "projects.ex:107")
 
         max_pairings_this_sprint = (length(developers_available_this_sprint) / 2) |> ceil()
 
@@ -117,6 +119,7 @@ defmodule PairingProject.Projects do
             potential_pairings_for_this_sprint |> Enum.shuffle(),
             max_pairings_this_sprint
           )
+          |> Map.put(:devs_on_vacay, vacay_devs)
 
         [%{sprint | pairings: created_pairing} | sprints_acc]
       end)
@@ -204,9 +207,11 @@ defmodule PairingProject.Projects do
 
   defp developers_available_for_this_sprint(developers, daterange, threshold) do
     developers
-    |> Enum.map(fn dev ->
+    |> Enum.reduce(%{devs: [], vacay: []}, fn dev, acc = %{devs: devs, vacay: vacay} ->
       if Accounts.user_sprint_availability(dev, daterange, threshold) do
-        dev
+        %{acc | devs: [dev | devs]}
+      else
+        %{acc | vacay: [dev | vacay]}
       end
     end)
   end

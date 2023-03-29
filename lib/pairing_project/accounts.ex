@@ -133,7 +133,7 @@ defmodule PairingProject.Accounts do
         end
       end)
 
-    length(breached) < threshold
+    length(breached) <= threshold
   end
 
   defp maybe_check_dates(nil), do: []

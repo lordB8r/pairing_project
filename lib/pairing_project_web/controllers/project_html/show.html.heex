@@ -29,12 +29,16 @@
     <th>Sprint id</th>
     <th>Start date</th>
     <th>Pairings</th>
+    <th>Solo</th>
+    <th>Devs on Vacation</th>
   </tr>
   <%= for sprint <- sprint_pairings(@project.sprints) do %>
     <tr>
       <td><%= sprint["id"] %></td>
       <td><%= sprint["startdate"] %></td>
       <td><%= display_pairs(sprint["pairings"]) %></td>
+      <td><%= display_solos(sprint["pairings"]) %></td>
+      <td><%= display_vacation(sprint["pairings"]) %></td>
     </tr>
   <% end %>
 </table>

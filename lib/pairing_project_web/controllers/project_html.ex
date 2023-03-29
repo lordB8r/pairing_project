@@ -47,18 +47,42 @@ defmodule PairingProjectWeb.ProjectHTML do
     list = pairings["sprint_pairings"]
 
     Enum.map(list, fn pair ->
-      "{" <> get_pair_names(pair) <> "}"
+      get_pair_names(pair)
     end)
   end
 
-  defp get_pair_names([dev1, 0]), do: get_full_name(Accounts.get_user!(dev1))
-  defp get_pair_names([0, dev2]), do: get_full_name(Accounts.get_user!(dev2))
+  def display_solos(nil), do: "No solos this sprint"
+
+  def display_solos(pairings) do
+    list = pairings["sprint_pairings"]
+
+    Enum.map(list, fn pair ->
+      get_solo_names(pair)
+    end)
+  end
+
+  def display_vacation(nil), do: []
+
+  def display_vacation(pairings) do
+    pairings["devs_on_vacay"]
+    |> Enum.map(fn dev ->
+      get_full_name(Accounts.get_user!(dev))
+    end)
+  end
+
+  defp get_pair_names([_dev1, 0]), do: ""
+  defp get_pair_names([0, _dev2]), do: ""
 
   defp get_pair_names([dev1, dev2]) do
     d1 = Accounts.get_user!(dev1)
     d2 = Accounts.get_user!(dev2)
-    get_full_name(d1) <> " & " <> get_full_name(d2)
+    "{" <> get_full_name(d1) <> " & " <> get_full_name(d2) <> "}"
   end
+
+  defp get_solo_names([dev1, 0]), do: get_full_name(Accounts.get_user!(dev1))
+  defp get_solo_names([0, dev2]), do: get_full_name(Accounts.get_user!(dev2))
+
+  defp get_solo_names([dev1, dev2]), do: ""
 
   defp get_full_name(dev) do
     dev.last_name <> ", " <> dev.first_name
